@@ -1,6 +1,7 @@
-Log Analysis Using Regular Expressions
+#Log Analysis Using Regular Expressions
 
-Introduction
+#Introduction
+
 Imagine your company uses a server that runs a service called ticky, an internal ticketing system.
 The service logs events to syslog, both when it runs successfully and when it encounters errors.
 
@@ -9,7 +10,8 @@ better understand how their software is used and how to improve it. So, for this
 some automation scripts that will process the system log and generate reports based on the information
 extracted from the log files.
 
-What you'll do
+#What you'll do 
+
 Use regex to parse a log file
 Append and modify values in a dictionary
 Write to a file in CSV format
