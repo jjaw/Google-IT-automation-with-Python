@@ -42,9 +42,9 @@ def process_data(data):
     # TODO: also handle most popular car_year
     if item["car"]["car_year"] not in car_year_count:
       car_year_count[item["car"]["car_year"]] = 0
-      car_year_count[item["car"]["car_year"]] += item["total_sale"]
+      car_year_count[item["car"]["car_year"]] += item["total_sales"]
     else:
-      car_year_count[item["car"]["car_year"]] += item["total_sale"]
+      car_year_count[item["car"]["car_year"]] += item["total_sales"]
   best_year, best_year_sales = max(car_year_count.items(), key=lambda x:x[1])
 
   summary = [
