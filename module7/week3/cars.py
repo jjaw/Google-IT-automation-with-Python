@@ -6,6 +6,10 @@ import sys
 import emails
 import os
 import reports
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.charts.piecharts import Pie
+
+
 
 def load_data(filename):
   """Loads the contents of filename as a JSON file."""
@@ -45,17 +49,18 @@ def process_data(data):
       car_year_count[item["car"]["car_year"]] += item["total_sales"]
     else:
       car_year_count[item["car"]["car_year"]] += item["total_sales"]
+
   best_year, best_year_sales = max(car_year_count.items(), key=lambda x:x[1])
 
   summary = [
     "The {} generated the most revenue: ${}".format(
       format_car(max_revenue["car"]), max_revenue["revenue"])
     #"The {} generated the most sales: {}".format(
-      #format_car(max_sale["car"]), max_sale["total_sales"]),
+	      #format_car(max_sale["car"]), max_sale["total_sales"]),
     #"The most popular year was {} with {} sales.".format(
       #best_year, best_year_sales)
   ]
- max_sale_format = "The {} generated the most sales: {}".format(format_car(max_sale["car"]), max_sale["total_sales"])
+  max_sale_format = "The {} generated the most sales: {}".format(format_car(max_sale["car"]), max_sale["total_sales"])
   best_year_format = "The most popular year was {} with {} sales.".format(best_year, best_year_sales)
 
   summary.append(max_sale_format)
@@ -70,16 +75,41 @@ def cars_dict_to_table(car_data):
     table_data.append([item["id"], format_car(item["car"]), item["price"], item["total_sales"]])
   return table_data
 
+def pie_chart(car_data):
+  report_pie = Pie()
+  report_pie.width = 380
+  report_pie.height = 380
+  report_pie.x = 42
+  report_pie.y = -230
+  report_pie.data = []
+  report_pie.labels = []
+  car_make = {} #storing different car_make as key and their sum of sales as value
+  for item in car_data:
+    car_info = format_car(item["car"])
+    report_pie.data.append(item["total_sales"])
+    report_pie.labels.append(car_info)
+  report_chart = Drawing()
+  report_chart.add(report_pie)
+  return(report_chart)
+
 
 def main(argv):
   """Process the JSON data and generate a full report out of it."""
   data = load_data("car_sales.json")
   summary = process_data(data)
   table = cars_dict_to_table(data)
+  #remove the first line in the table so I can sort the rest.
+  table_raw = table[1:]
+  table_sorted = sorted(table_raw, key=lambda x:x[3], reverse=True)
+  #adding the header back to the table
+  table_sorted.insert(0, ["ID", "Car", "Price", "Total Sales"])
+  #calling pie chart
+  pie = pie_chart(data)
+
   print(summary)
   report_summary = summary[0] + "<br/>" + summary[1] + "<br/>" + summary[2] + "<br/>"
   # TODO: turn this into a PDF report
-  reports.generate("/tmp/cars.pdf", "Title", report_summary , table)
+  reports.generate("/tmp/cars.pdf", "Title", report_summary , table_sorted, pie) #Sorting the table by Sales
   # TODO: send the PDF report as an email attachment
   sender = "automation@example.com"
   receiver = "{}@example.com".format(os.environ.get('USER'))
