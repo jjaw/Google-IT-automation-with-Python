@@ -7,9 +7,12 @@ path = "~/supplier-data/images/
 pictures = os.listdir(path)
 
 for pic in pictures:
-  outfile = "~/supplier-data/images/" + image + ".jpeg"
-  try:
-    Image.open(pic).resize((600,400)).convert("RGB").save(outfile,"JPEG")
-  except IOError:
-    print("cannot convert", pic)
+  if 'tiff' in pic:
+    #grab the picture name without the .tiff extension
+    file_name = os.pathsplitext(pic)[0]
+    outfile = "~/supplier-data/images/" + file_name + ".jpeg"
+    try:
+      Image.open(pic).resize((600,400)).convert("RGB").save(outfile,"JPEG")
+    except IOError:
+      print("cannot convert", pic)
 
