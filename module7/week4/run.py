@@ -20,7 +20,3 @@ for file in files:
       response.raise_for_status()
       print(response.request.url)
       print(response.status_code)
-
-
-
-
