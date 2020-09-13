@@ -6,7 +6,7 @@ import os, sys
 path = "~/supplier-data/images/
 pictures = os.listdir(path)
 
-for pic in images:
+for pic in pictures:
   outfile = "~/supplier-data/images/" + image + ".jpeg"
   try:
     Image.open(pic).resize((600,400)).convert("RGB").save(outfile,"JPEG")
