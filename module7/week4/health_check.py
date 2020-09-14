@@ -6,7 +6,10 @@ import emails
 import os, sys
 
 #Warning if CPU usage is over 80%
-cpu_usage = psutil.cpu_percent(1) 
+def cpu_check():
+  cpu_usage = psutil.cpu_percent(1) 
+  return not cpu_usage > 80
+
 
 #Report an error if available disk space is lower than 20%
 disk_usage = shutil.disk_usage("/")
