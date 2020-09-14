@@ -10,12 +10,23 @@ def cpu_check():
   cpu_usage = psutil.cpu_percent(1) 
   return not cpu_usage > 80
 
+def cpu_check_error():
+  if not cpu_check():
+    subject = "Error - CPU usage is over 80%"
+  email_warning(subject)
 
 #Report an error if available disk space is lower than 20%
-disk_usage = shutil.disk_usage("/")
-disk_total = disk_usage.total
-disk_free = disk_usage.used
-threshold = disk_free / disk_total * 100
+def disc_space_check():  
+  disk_usage = shutil.disk_usage("/")
+  disk_total = disk_usage.total
+  disk_free = disk_usage.used
+  threshold = disk_free / disk_total * 100
+  return threshold > 20
+
+def disc_space_error():
+  if not disc_space_check():
+    subject = "Error - Available disk space is less than 20%"
+  email_warning(subject)
 
 #Report an error if available memory is less than 500MB
 available = psutil.virtual_memory().available
