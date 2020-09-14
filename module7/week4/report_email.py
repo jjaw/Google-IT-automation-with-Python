@@ -2,7 +2,7 @@
 
 import os, datetime
 import json
-from reports import generate
+import reports
 
 #get the current time in GMT
 current_date = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -21,8 +21,10 @@ def generate_pdf(path):
 
 if __name__ == "__main__":
   path = "~/supplier-data/descriptions/"
-  generate_pdf(path)
-
+  title = "Process Updated on " + current_date 
+  package = generate_pdf(path)
+  reports.generate_report("/tmp/processed.pdf", title, package)
+  
 
 
 
