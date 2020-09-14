@@ -2,6 +2,7 @@
 
 import os, datetime
 import reports
+import emails
 
 #get the current time in GMT
 current_date = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -27,12 +28,17 @@ if __name__ == "__main__":
 
   #generate email information
   sender = "automation@example.com"
-  reciever = "{}@example.com".format(os.environ["USER"])
+  receiver = "{}@example.com".format(os.environ["USER"])
   subject = "Upload Completed - Online Fruit Store"
   body = "All fruits are uploaded to our website successfully. A detailed list is attached to this email."
   attachment = "/tmp/processed.pdf"
   
+  #generate email for the online fruit store report and pdf attachment
+  message = emails.generate_email(sender, receiver, subject, body, attachment)
+  emails.send_email(message)
 
+
+  
 
 
 

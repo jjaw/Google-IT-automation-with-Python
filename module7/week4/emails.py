@@ -26,10 +26,10 @@ def generate_email(sender, recipient, subject, body, attachment_path = None):
                           filename=attachment_name)
   return message
 
-def send_email(message):
-  """Sends the message to the configured SMTP server."""
+def send_email(package):
+  """Sends the email package to the configured SMTP server."""
   mail_server = smtplib.SMTP('localhost')
-  mail_server.send_message(message)
+  mail_server.send_message(package)
   mail_server.quit()
 
 
