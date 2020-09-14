@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from reportlab.platypus import SimpleDocTemplate
 from reportlab.platypus import Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
