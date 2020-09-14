@@ -12,7 +12,7 @@ def generate_pdf(path):
   files = os.listdir(path)
   for file in files:
     if file.endswith(".txt"):
-      with open(file, 'r') as f:
+      with open(path + file, 'r') as f:
         inline = f.readlines()
         name = inline[0].strip()
         weight = inline[1].strip()
@@ -20,7 +20,7 @@ def generate_pdf(path):
   return pdf
 
 if __name__ == "__main__":
-  path = "~/supplier-data/descriptions/"
+  path = "supplier-data/descriptions/"
   title = "Process Updated on " + current_date 
   #generate the package for pdf body
   package = generate_pdf(path)

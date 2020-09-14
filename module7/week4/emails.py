@@ -19,7 +19,7 @@ def generate_email(sender, recipient, subject, body, attachment_path = None):
   mime_type, _ = mimetypes.guess_type(attachment_path)
   mime_type, mime_subtype = mime_type.split("/", 1)
 
-  with open(attachment_name, 'rb') as fp:
+  with open(attachment_path, 'rb') as fp:
     message.add_attachment(fp.read(),
                           maintype=mime_type,
                           subtype=mime_subtype,
