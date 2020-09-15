@@ -11,7 +11,7 @@ for pic in pictures:
     file_name = os.path.splitext(pic)[0]
     outfile = "supplier-data/images/" + file_name + ".jpeg"
     try:
-      Image.open(path + pic).convert"RGB").resize((600,400)).save(outfile,"JPEG")
+      Image.open(path + pic).convert("RGB").resize((600,400)).save(outfile,"JPEG")
     except IOError:
       print("cannot convert", pic)
 
