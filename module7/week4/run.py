@@ -15,7 +15,7 @@ for file in files:
       fruit_name = os.path.splitext(file)[0]
       data = f.read()
       data = data.split("\n")
-      fruit_dic = {"name": data[0], "weight": str(data[1].strip(" lb")), "description": data[2], "image_name": fruit_name + ".jpeg"}
+      fruit_dic = {"name": data[0], "weight": int(data[1].strip(" lbs")), "description": data[2], "image_name": fruit_name + ".jpeg"}
       response = requests.post(url, json=fruit_dic)
       response.raise_for_status()
       print(response.request.url)
